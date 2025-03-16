@@ -11,9 +11,9 @@ public class GetTgId: IGetTgId
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
-    public GetTgId(HttpClient httpClient, ILogger logger)
+    public GetTgId(IHttpClientFactory httpClientFactory, ILogger logger)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient("DbProxyClient");
         _logger = logger;
     }
     

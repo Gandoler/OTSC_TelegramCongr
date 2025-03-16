@@ -10,9 +10,9 @@ public class GetPozdrikId : IGetPozdrikId
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
-    public GetPozdrikId(HttpClient httpClient, ILogger logger)
+    public GetPozdrikId(IHttpClientFactory httpClientFactory, ILogger logger)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient("DbProxyClient");
         _logger = logger;
     }
     

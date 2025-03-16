@@ -10,9 +10,9 @@ public class GetTodayBDayFriends : IGetTodayBDayFriends
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
-    public GetTodayBDayFriends(HttpClient httpClient, ILogger logger)
+    public GetTodayBDayFriends(IHttpClientFactory httpClientFactory, ILogger logger)
     {
-        _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+        _httpClient = httpClientFactory.CreateClient("DbProxyClient");
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 

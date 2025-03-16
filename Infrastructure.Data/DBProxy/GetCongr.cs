@@ -10,9 +10,9 @@ public class GetCongr: IGetCongr
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
-    public GetCongr(HttpClient httpClient, ILogger logger)
+    public GetCongr(IHttpClientFactory httpClientFactory, ILogger logger)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient("DbProxyClient");
         _logger = logger;
     }
     

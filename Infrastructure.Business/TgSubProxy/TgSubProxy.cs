@@ -12,9 +12,9 @@ public class TgSubProxy : ITgSubProxy
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
-    public TgSubProxy(HttpClient httpClient, ILogger logger)
+    public TgSubProxy(IHttpClientFactory httpClientFactory, ILogger logger)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient("TgSubClient");
         _logger = logger;
     }
 

@@ -43,13 +43,19 @@ var builder = Host.CreateDefaultBuilder(args)
         services.AddSingleton<IGetTgId, GetTgId>(); 
         services.AddSingleton<IGetTodayBDayFriends, GetTodayBDayFriends>(); 
         services.AddSingleton<ITgBotRepository, TgBotRepository>();
-        
+        services.AddTransient<IGetTodayBDayFriends, GetTodayBDayFriends>();
 
         services.AddSingleton<ITgBotRepository, TgBotRepository>();
         
-        services.AddHttpClient<ITgSubProxy, TgSubProxy>(client =>
+        
+        services.AddHttpClient("DbProxyClient", client =>
         {
-            client.BaseAddress = new Uri(Tgsub);
+            client.BaseAddress = new Uri(configuration["ApiSettings:DbProxy"]!);
+        });
+
+        services.AddHttpClient("TgSubClient", client =>
+        {
+            client.BaseAddress = new Uri(configuration["ApiSettings:TGSUBS"]!);
         });
 
         services.AddSingleton<ITgBotRepository, TgBotRepository>();
