@@ -7,9 +7,9 @@ namespace Infrastructure.Data.DBProxy;
 public class GetCongr: IGetCongr
 {
     private readonly HttpClient _httpClient;
-    private readonly ILogger<GetCongr> _logger;
+    private readonly ILogger _logger;
 
-    public GetCongr(HttpClient httpClient, ILogger<GetCongr> logger)
+    public GetCongr(HttpClient httpClient, ILogger logger)
     {
         _httpClient = httpClient;
         _logger = logger;
