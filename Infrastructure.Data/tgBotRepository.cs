@@ -11,14 +11,14 @@ public class TgBotRepository : ITgBotRepository
     private readonly IGetCongr _getCongr;
     private readonly IGetTgId _getTgId;
     private readonly IGetTodayBDayFriends _getTodayBDayFriends;
-    private readonly IGetUsername _getUsername;
+    private readonly IGetPozdrikId _getPozdrikId;
     public TgBotRepository(IGetCongr getCongr, IGetTgId getTgId, IGetTodayBDayFriends getTodayBDayFriends, 
-        IGetUsername getUsername)
+        IGetPozdrikId getPozdrikId)
     {
         _getCongr = getCongr;
         _getTgId = getTgId;
         _getTodayBDayFriends = getTodayBDayFriends;
-        _getUsername = getUsername;
+        _getPozdrikId = getPozdrikId;
     }
 
     public Task<string?> GetCongratulationAsync(PozdrikIdDto pozdrikId)
@@ -26,18 +26,20 @@ public class TgBotRepository : ITgBotRepository
         return _getCongr.GetCongratulationAsync(pozdrikId);
     }
 
-    public Task<TgIdDto?> GetTgId(AppIdDto appId)
+    public async Task<TgIdDto?> GetTgId(AppIdDto appId)
     {
-        return _getTgId.GetTgId(appId);
+        return await _getTgId.GetTgId(appId);
     }
 
-    public Task<List<FriendDto>> GetTodayBDayFriendsAsync()
+    public async Task<List<FriendDto>> GetTodayBDayFriendsAsync()
     {
-        return _getTodayBDayFriends.GetTodayBDayFriendsAsync();
+        return await _getTodayBDayFriends.GetTodayBDayFriendsAsync();
     }
 
-    public Task<string?> GetUsernameAsync(PozdrikIdDto pozdrikId)
+    public async Task<PozdrikIdDto?> GetUsernameAsync(FriendDto friend)
     {
-        return _getUsername.GetUsernameAsync(pozdrikId);
+        return await _getPozdrikId.GetPozdrikIdAsync(friend);
     }
+    
+    
 }

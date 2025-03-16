@@ -1,5 +1,6 @@
 using Domain.Interfaces;
 using Domain.Interfaces.IServices;
+using Entities.Templates;
 using Serilog;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -11,13 +12,15 @@ public class TelegramBotService : ITelegramBotService
     private readonly TelegramBotClient _botClient;
     private readonly IBotCommandHandler _commandHandler;
     private readonly ILogger _logger;
+    private readonly ITgBotRepository _tgBotRepository;
 
     public TelegramBotService(IBotCommandHandler botCommandHandler, TelegramBotClient botClient, 
-        ILogger logger)
+        ILogger logger, ITgBotRepository tgBotRepository)
     {
         _botClient = botClient;
         _commandHandler = botCommandHandler;
         _logger = logger;
+        _tgBotRepository = tgBotRepository;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -35,7 +38,13 @@ public class TelegramBotService : ITelegramBotService
 
     public async Task SendCongratulate(Message message,long tgId ,CancellationToken cancellationToken)
     {
-        
+        List<FriendDto> BDayList = await _tgBotRepository.GetTodayBDayFriendsAsync();
+        foreach (var VARIABLE in BDayList)
+        {
+            string username = VARIABLE.FriendUsername;
+            string congr = _tgBotRepository.GetCongratulationAsync()
+        }
+
     }
     
     private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
