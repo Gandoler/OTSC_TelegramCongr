@@ -13,15 +13,15 @@ public class TelegramBotService : ITelegramBotService
     private readonly TelegramBotClient _botClient;
     private readonly IBotCommandHandler _commandHandler;
     private readonly ILogger _logger;
-    private readonly ITgBotRepository _tgBotRepository;
+    private readonly ICongratulationService _congratulationService;
 
     public TelegramBotService(IBotCommandHandler botCommandHandler, TelegramBotClient botClient, 
-        ILogger logger, ITgBotRepository tgBotRepository)
+        ILogger logger, ICongratulationService congratulationService)
     {
         _botClient = botClient;
         _commandHandler = botCommandHandler;
         _logger = logger;
-        _tgBotRepository = tgBotRepository;
+        _congratulationService = congratulationService;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -39,30 +39,15 @@ public class TelegramBotService : ITelegramBotService
 
     public async Task SendCongratulate(Message message, long tgId, CancellationToken cancellationToken)
     {
-        List<FriendDto> BDayList = await _tgBotRepository.GetTodayBDayFriendsAsync();
-    
-        foreach (var friend in BDayList)
-        {
-            string username = friend.FriendUsername;
-            PozdrikIdDto? id = await _tgBotRepository.GetPozdrikIdAsync(friend);
+        var congratulations = await _congratulationService.GetCongratulationsAsync();
         
-            if (id != null)
-            {
-                string? congratulation = await _tgBotRepository.GetCongratulationAsync(id);
-                if (!string.IsNullOrEmpty(congratulation))
-                {
-                    TgIdDto? tgid = await _tgBotRepository.GetTgId(new AppIdDto { AppId = friend.AppId });
-
-                    if (tgid?.TgId != null)
-                    {
-                        await _botClient.SendTextMessageAsync(
-                            chatId: tgid.TgId,
-                            text: congratulation,
-                            cancellationToken: cancellationToken
-                        );
-                    }
-                }
-            }
+        foreach (var (chatId, text) in congratulations)
+        {
+            await _botClient.SendTextMessageAsync(
+                chatId: chatId,
+                text: text,
+                cancellationToken: cancellationToken
+            );
         }
     }
     
