@@ -11,4 +11,8 @@
       <ProjectReference Include="..\Domain.Interfaces\Domain.Interfaces.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Serilog" Version="4.2.0" />
+    </ItemGroup>
+
 </Project>
