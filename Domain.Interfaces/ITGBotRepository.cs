@@ -9,7 +9,7 @@ public interface ITgBotRepository
     Task<string?> GetCongratulationAsync(PozdrikIdDto pozdrikId);
     Task<TgIdDto?> GetTgId(AppIdDto appId);
     Task<List<FriendDto>> GetTodayBDayFriendsAsync();
-    Task<PozdrikIdDto?> GetUsernameAsync(FriendDto user);
+    Task<PozdrikIdDto?> GetPozdrikIdAsync(FriendDto user);
 
 
 

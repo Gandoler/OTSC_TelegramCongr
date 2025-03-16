@@ -36,7 +36,7 @@ public class TgBotRepository : ITgBotRepository
         return await _getTodayBDayFriends.GetTodayBDayFriendsAsync();
     }
 
-    public async Task<PozdrikIdDto?> GetUsernameAsync(FriendDto friend)
+    public async Task<PozdrikIdDto?> GetPozdrikIdAsync(FriendDto friend)
     {
         return await _getPozdrikId.GetPozdrikIdAsync(friend);
     }

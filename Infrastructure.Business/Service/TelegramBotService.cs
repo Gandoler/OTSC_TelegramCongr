@@ -1,3 +1,4 @@
+using Domain.DTO.TG;
 using Domain.Interfaces;
 using Domain.Interfaces.IServices;
 using Entities.Templates;
@@ -36,15 +37,33 @@ public class TelegramBotService : ITelegramBotService
         await Task.Delay(-1, cancellationToken);
     }
 
-    public async Task SendCongratulate(Message message,long tgId ,CancellationToken cancellationToken)
+    public async Task SendCongratulate(Message message, long tgId, CancellationToken cancellationToken)
     {
         List<FriendDto> BDayList = await _tgBotRepository.GetTodayBDayFriendsAsync();
-        foreach (var VARIABLE in BDayList)
+    
+        foreach (var friend in BDayList)
         {
-            string username = VARIABLE.FriendUsername;
-            string congr = _tgBotRepository.GetCongratulationAsync()
-        }
+            string username = friend.FriendUsername;
+            PozdrikIdDto? id = await _tgBotRepository.GetPozdrikIdAsync(friend);
+        
+            if (id != null)
+            {
+                string? congratulation = await _tgBotRepository.GetCongratulationAsync(id);
+                if (!string.IsNullOrEmpty(congratulation))
+                {
+                    TgIdDto? tgid = await _tgBotRepository.GetTgId(new AppIdDto { AppId = friend.AppId });
 
+                    if (tgid?.TgId != null)
+                    {
+                        await _botClient.SendTextMessageAsync(
+                            chatId: tgid.TgId,
+                            text: congratulation,
+                            cancellationToken: cancellationToken
+                        );
+                    }
+                }
+            }
+        }
     }
     
     private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
