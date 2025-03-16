@@ -1,6 +1,6 @@
 using Entities.Templates;
 
-namespace Domain.Interfaces.DBProxy;
+namespace Domain.Interfaces.IDBProxy;
 
 public interface IGetTodayBDayFriends
 {

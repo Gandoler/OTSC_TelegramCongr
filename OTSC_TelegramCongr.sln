@@ -4,15 +4,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiLevel", "ApiLevel", "{3B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{D92B11E4-B38D-4D11-99C5-013255C5385B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{1D6988E4-08B6-4335-B822-101FE2344325}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastrusutre", "Infrastrusutre", "{1D6988E4-08B6-4335-B822-101FE2344325}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TgCongratulationsApi", "TgCongratulationsApi\TgCongratulationsApi.csproj", "{76D938F5-FB2E-4FF6-A0B5-70D008E391FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Business", "Interfaces.Business\Interfaces.Business.csproj", "{400C358C-E6A1-4F6B-AEB7-B1F606E94E5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Business", "Infrastructure.Business\Infrastructure.Business.csproj", "{400C358C-E6A1-4F6B-AEB7-B1F606E94E5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Interfaces", "Domain.Interfaces\Domain.Interfaces.csproj", "{E3BE91CA-7277-4568-9C7D-949C721F7335}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.DTO", "Domain.DTO\Domain.DTO.csproj", "{F4CD061D-C82F-4D76-B11F-C5763CE8D5E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Data", "Infrastructure.Data\Infrastructure.Data.csproj", "{0C3845AF-984C-41C5-B75E-A73A973D0A65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,7 @@ Global
 		{400C358C-E6A1-4F6B-AEB7-B1F606E94E5F} = {1D6988E4-08B6-4335-B822-101FE2344325}
 		{E3BE91CA-7277-4568-9C7D-949C721F7335} = {D92B11E4-B38D-4D11-99C5-013255C5385B}
 		{F4CD061D-C82F-4D76-B11F-C5763CE8D5E8} = {D92B11E4-B38D-4D11-99C5-013255C5385B}
+		{0C3845AF-984C-41C5-B75E-A73A973D0A65} = {1D6988E4-08B6-4335-B822-101FE2344325}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{76D938F5-FB2E-4FF6-A0B5-70D008E391FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -42,5 +45,9 @@ Global
 		{F4CD061D-C82F-4D76-B11F-C5763CE8D5E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4CD061D-C82F-4D76-B11F-C5763CE8D5E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4CD061D-C82F-4D76-B11F-C5763CE8D5E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C3845AF-984C-41C5-B75E-A73A973D0A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C3845AF-984C-41C5-B75E-A73A973D0A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C3845AF-984C-41C5-B75E-A73A973D0A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C3845AF-984C-41C5-B75E-A73A973D0A65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
