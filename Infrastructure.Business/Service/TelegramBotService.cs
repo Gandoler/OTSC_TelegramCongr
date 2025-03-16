@@ -12,7 +12,8 @@ public class TelegramBotService : ITelegramBotService
     private readonly IBotCommandHandler _commandHandler;
     private readonly ILogger _logger;
 
-    public TelegramBotService(IBotCommandHandler botCommandHandler, TelegramBotClient botClient, ILogger logger)
+    public TelegramBotService(IBotCommandHandler botCommandHandler, TelegramBotClient botClient, 
+        ILogger logger)
     {
         _botClient = botClient;
         _commandHandler = botCommandHandler;
@@ -38,7 +39,8 @@ public class TelegramBotService : ITelegramBotService
             return;
 
         _logger.Information("Получено сообщение от {UserId}: {MessageText}", message.From?.Id, message.Text);
-        return await _commandHandler.HandleMessageAsync(botClient, message, cancellationToken);
+        await _commandHandler.HandleMessageAsync(botClient, message, cancellationToken);
+        
     }
 
     private Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
