@@ -5,5 +5,5 @@ namespace Domain.Interfaces.IDBProxy;
 
 public interface IGetTgId
 {
-    Task<TgIdDto> GetTgId(AppIdDto appId);
+    Task<TgIdDto?> GetTgId(AppIdDto appId);
 }

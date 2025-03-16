@@ -1,6 +1,7 @@
 using Domain.Interfaces.IDBProxy;
 using Entities.Templates;
-using Microsoft.Extensions.Logging;
+using Serilog;
+
 
 namespace Infrastructure.Data.DBProxy;
 
@@ -18,7 +19,7 @@ public class GetCongr: IGetCongr
     public async Task<string?> GetCongratulationAsync(PozdrikIdDto pozdrikId)
     {
         string requestUrl = $"api/tgbot/getCongrByPID/{pozdrikId}";
-        _logger.LogInformation("Sending request to {Url}", requestUrl);
+        _logger.Information("Sending request to {Url}", requestUrl);
 
         HttpResponseMessage response;
         try
@@ -27,18 +28,18 @@ public class GetCongr: IGetCongr
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Exception occurred while making request to {Url}", requestUrl);
+            _logger.Error(ex, "Exception occurred while making request to {Url}", requestUrl);
             throw;
         }
 
         if (!response.IsSuccessStatusCode)
         {
-            _logger.LogWarning("Request to {Url} failed with status code {StatusCode}: {ReasonPhrase}", requestUrl, (int)response.StatusCode, response.ReasonPhrase);
+            _logger.Warning("Request to {Url} failed with status code {StatusCode}: {ReasonPhrase}", requestUrl, (int)response.StatusCode, response.ReasonPhrase);
             throw new Exception($"Error fetching Name: {response.ReasonPhrase}");
         }
         
         string responseBody = await response.Content.ReadAsStringAsync();
-        _logger.LogInformation("Received response from {Url}: {Response}", requestUrl, responseBody);
+        _logger.Information("Received response from {Url}: {Response}", requestUrl, responseBody);
         
         return responseBody;
     }

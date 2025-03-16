@@ -19,8 +19,7 @@ public class GetTgI: IGetTgId
     
     public async Task<TgIdDto?> GetTgId(AppIdDto appId)
     {
-        if (appId is null)
-            throw new ArgumentNullException(nameof(appId));
+        
 
         _logger.Information($"Starting GetTgId request for AppId: {appId.AppId}");
 

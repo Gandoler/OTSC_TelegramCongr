@@ -4,5 +4,5 @@ namespace Domain.Interfaces.IDBProxy;
 
 public interface IGetTodayBDayFriends
 {
-    Task<List<PozdrikIdDto>> GetTodayBDayFriendsAsync();
+    Task<List<FriendDto>> GetTodayBDayFriendsAsync();
 }
