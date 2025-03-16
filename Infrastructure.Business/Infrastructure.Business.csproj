@@ -7,4 +7,8 @@
         <RootNamespace>Interfaces.Business</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Domain.Interfaces\Domain.Interfaces.csproj" />
+    </ItemGroup>
+
 </Project>

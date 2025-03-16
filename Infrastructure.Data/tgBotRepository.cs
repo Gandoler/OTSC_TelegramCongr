@@ -11,17 +11,11 @@ public class TgBotRepository : ITgBotRepository
     private readonly IGetCongr _getCongr;
     private readonly IGetTgId _getTgId;
     private readonly IGetTodayBDayFriends _getTodayBDayFriends;
-    private readonly HttpClient _httpClient;
-    private readonly ILogger _logger;
-
-    public TgBotRepository(IGetCongr getCongr, IGetTgId getTgId, IGetTodayBDayFriends getTodayBDayFriends,
-        HttpClient httpClient, ILogger logger)
+    public TgBotRepository(IGetCongr getCongr, IGetTgId getTgId, IGetTodayBDayFriends getTodayBDayFriends)
     {
         _getCongr = getCongr;
         _getTgId = getTgId;
         _getTodayBDayFriends = getTodayBDayFriends;
-        _httpClient = httpClient;
-        _logger = logger;
     }
 
     public Task<string?> GetCongratulationAsync(PozdrikIdDto pozdrikId)
