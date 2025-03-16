@@ -6,22 +6,22 @@ using Serilog;
 
 namespace Infrastructure.Data.DBProxy;
 
-public class GetTgI: IGetTgId
+public class GetTgId: IGetTgId
 {
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
 
-    public GetTgI(HttpClient httpClient, ILogger logger)
+    public GetTgId(HttpClient httpClient, ILogger logger)
     {
         _httpClient = httpClient;
         _logger = logger;
     }
     
-    public async Task<TgIdDto?> GetTgId(AppIdDto appId)
+    public async Task<TgIdDto?> GetTgIdAsync(AppIdDto appId)
     {
         
 
-        _logger.Information($"Starting GetTgId request for AppId: {appId.AppId}");
+        _logger.Information($"Starting GetTgIdAsync request for AppId: {appId.AppId}");
 
         try
         {
@@ -29,7 +29,7 @@ public class GetTgI: IGetTgId
         
             if (!response.IsSuccessStatusCode)
             {
-                _logger.Warning($"GetTgId request for AppId {appId.AppId} failed with status {response.StatusCode}");
+                _logger.Warning($"GetTgIdAsync request for AppId {appId.AppId} failed with status {response.StatusCode}");
                 return null;
             }
 
@@ -37,23 +37,23 @@ public class GetTgI: IGetTgId
 
             if (result is null)
             {
-                _logger.Warning($"GetTgId response for AppId {appId.AppId} is null");
+                _logger.Warning($"GetTgIdAsync response for AppId {appId.AppId} is null");
             }
             else
             {
-                _logger.Information($"GetTgId request for AppId {appId.AppId} succeeded: {result}");
+                _logger.Information($"GetTgIdAsync request for AppId {appId.AppId} succeeded: {result}");
             }
 
             return result;
         }
         catch (HttpRequestException ex)
         {
-            _logger.Error(ex, $"GetTgId request for AppId {appId.AppId} encountered an HTTP error");
+            _logger.Error(ex, $"GetTgIdAsync request for AppId {appId.AppId} encountered an HTTP error");
             return null;
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, $"Unexpected error during GetTgId request for AppId {appId.AppId}");
+            _logger.Error(ex, $"Unexpected error during GetTgIdAsync request for AppId {appId.AppId}");
             return null;
         }
     }

@@ -28,7 +28,7 @@ public class TgBotRepository : ITgBotRepository
 
     public async Task<TgIdDto?> GetTgId(AppIdDto appId)
     {
-        return await _getTgId.GetTgId(appId);
+        return await _getTgId.GetTgIdAsync(appId);
     }
 
     public async Task<List<FriendDto>> GetTodayBDayFriendsAsync()

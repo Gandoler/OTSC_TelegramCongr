@@ -4,11 +4,12 @@ namespace Rabotiaga;
 
 public class Worker : BackgroundService
 {
-    private readonly ILogger _logger;
-    private readonly TelegramBotService _botService;
-    private readonly TimeSpan _runTime = TimeSpan.FromHours(10);
 
-    public Worker(ILogger logger ,TelegramBotService botService)
+    private readonly TelegramBotService _botService;
+    private readonly TimeSpan _runTime = TimeSpan.FromMinutes(52);
+    private readonly ILogger<Worker> _logger;
+
+    public Worker(ILogger<Worker> logger, TelegramBotService botService)
     {
         _logger = logger;
         _botService = botService;
@@ -17,16 +18,17 @@ public class Worker : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _logger.LogInformation("Сервис запущен...");
-        
+
         // Запуск бота
         _ = _botService.StartAsync(stoppingToken);
 
         while (!stoppingToken.IsCancellationRequested)
         {
             DateTime now = DateTime.Now;
-            DateTime nextRun = now.Date + _runTime;
+            DateTime nextRun = now.Date.AddHours(now.Hour).Add(_runTime);
+
             if (now > nextRun)
-                nextRun = nextRun.AddDays(1);
+                nextRun = now.Add(_runTime);
 
             TimeSpan delay = nextRun - now;
             _logger.LogInformation("Следующий запуск поздравлений в: {Time}", nextRun);
@@ -34,7 +36,7 @@ public class Worker : BackgroundService
             try
             {
                 await Task.Delay(delay, stoppingToken);
-                await _botService.SendCongratulate(null, 0, stoppingToken);
+                await _botService.SendCongratulate(stoppingToken);
             }
             catch (TaskCanceledException)
             {
