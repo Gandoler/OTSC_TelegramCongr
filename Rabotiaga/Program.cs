@@ -59,7 +59,10 @@ var builder = Host.CreateDefaultBuilder(args)
         });
 
         services.AddSingleton<ITgBotRepository, TgBotRepository>();
-
+        services.Configure<HostOptions>(options =>
+        {
+            options.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore;
+        });
 
         services.AddLogging();
         services.AddSingleton<TelegramBotService>();
