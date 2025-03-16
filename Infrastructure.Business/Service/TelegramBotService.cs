@@ -32,6 +32,11 @@ public class TelegramBotService : ITelegramBotService
 
         await Task.Delay(-1, cancellationToken);
     }
+
+    public async Task SendCongratulate(Message message,long tgId ,CancellationToken cancellationToken)
+    {
+        
+    }
     
     private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
