@@ -6,4 +6,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Telegram.Bot" Version="22.4.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Domain.DTO\Domain.DTO.csproj" />
+    </ItemGroup>
+
 </Project>
