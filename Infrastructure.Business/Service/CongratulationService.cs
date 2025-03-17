@@ -27,7 +27,7 @@ public class CongratulationService: ICongratulationService
             string? congratulation = await _tgBotRepository.GetCongratulationAsync(id);
             if (string.IsNullOrEmpty(congratulation)) continue;
             
-            TgIdDto? tgid = await _tgBotRepository.GetTgId(new AppIdDto { AppId = friend.AppId });
+            TgIdDto? tgid = await _tgBotRepository.GetTgIdAsync(new AppIdDto { AppId = friend.AppId });
             if (tgid?.TgId == null) continue;
             
             result.Add((tgid.TgId, congratulation));

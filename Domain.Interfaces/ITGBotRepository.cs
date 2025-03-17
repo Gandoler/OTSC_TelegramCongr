@@ -7,7 +7,7 @@ namespace Domain.Interfaces;
 public interface ITgBotRepository
 {
     Task<string?> GetCongratulationAsync(PozdrikIdDto pozdrikId);
-    Task<TgIdDto?> GetTgId(AppIdDto appId);
+    Task<TgIdDto?> GetTgIdAsync(AppIdDto appId);
     Task<List<FriendDto>> GetTodayBDayFriendsAsync();
     Task<PozdrikIdDto?> GetPozdrikIdAsync(FriendDto user);
 

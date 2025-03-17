@@ -26,7 +26,7 @@ public class TgBotRepository : ITgBotRepository
         return _getCongr.GetCongratulationAsync(pozdrikId);
     }
 
-    public async Task<TgIdDto?> GetTgId(AppIdDto appId)
+    public async Task<TgIdDto?> GetTgIdAsync(AppIdDto appId)
     {
         return await _getTgId.GetTgIdAsync(appId);
     }
