@@ -21,15 +21,16 @@ public class BotCommandHandler: IBotCommandHandler
     public async Task HandleMessageAsync(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
     {
         _logger.Information("Получено сообщение от {UserId}: {MessageText}", message.From?.Id, message.Text);
-    
+
         if (message.Text != null && message.Text.StartsWith("/start"))
         {
             _logger.Information("Обнаружена команда /start от {UserId}", message.From?.Id);
         
             if (message.From != null)
             {
+                var token = message.Text.Length > 6 ? message.Text.Substring(7) : string.Empty; // Обрезаем "/start "
                 await _tgSubProxy.SendTgSubVerification(new TgIdAndToken
-                    { Id = message.From.Id, Token = message.Text });
+                    { Id = message.From.Id, Token = token });
                 _logger.Information("Запрос на верификацию Telegram отправлен для {UserId}", message.From.Id);
             }
             else
@@ -42,4 +43,5 @@ public class BotCommandHandler: IBotCommandHandler
             _logger.Debug("Сообщение не является командой /start.");
         }
     }
+
 }
