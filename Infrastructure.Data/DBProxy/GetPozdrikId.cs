@@ -24,12 +24,16 @@ public class GetPozdrikId : IGetPozdrikId
             return null;
         }
 
+        // if (friendDto.FriendUsername != "james_taylor")
+        // {
+        //     return null;
+        // }
         try
         {
-            var url = $"api/tgbot/getPozdrikId/{friendDto}"; 
+            var url = $"api/tgbot/getPozdrikId"; 
             _logger.Information("Sending request to {Url}", url);
             
-            var response = await _httpClient.GetAsync(url);
+            var response = await _httpClient.PostAsJsonAsync(url, friendDto);
         
             if (!response.IsSuccessStatusCode)
             {

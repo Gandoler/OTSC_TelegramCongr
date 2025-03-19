@@ -1,3 +1,4 @@
+using System.Net.Http.Json;
 using Domain.Interfaces.IDBProxy;
 using Entities.Templates;
 using Serilog;
@@ -24,7 +25,8 @@ public class GetCongr: IGetCongr
         HttpResponseMessage response;
         try
         {
-            response = await _httpClient.GetAsync(requestUrl);
+            response = await _httpClient.PostAsJsonAsync($"api/tgbot/getCongrByPID/", pozdrikId);
+            
         }
         catch (Exception ex)
         {
@@ -35,7 +37,8 @@ public class GetCongr: IGetCongr
         if (!response.IsSuccessStatusCode)
         {
             _logger.Warning("Request to {Url} failed with status code {StatusCode}: {ReasonPhrase}", requestUrl, (int)response.StatusCode, response.ReasonPhrase);
-            throw new Exception($"Error fetching Name: {response.ReasonPhrase}");
+            return "счастья...";
+            
         }
         
         string responseBody = await response.Content.ReadAsStringAsync();
