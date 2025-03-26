@@ -7,7 +7,7 @@ public class Worker : BackgroundService
 
     private readonly TelegramBotService _botService;
     // private readonly TimeSpan _runTime = TimeSpan.FromHours(16);
-    private readonly TimeSpan _runTime = TimeSpan.FromMinutes(5);
+    private readonly TimeSpan _runTime = TimeSpan.FromMinutes(0);
     private readonly ILogger<Worker> _logger;
 
     public Worker(ILogger<Worker> logger, TelegramBotService botService)
