@@ -76,8 +76,12 @@ var builder = Host.CreateDefaultBuilder(args)
         services.AddLogging();
         services.AddSingleton<TelegramBotService>();
         services.AddHostedService<Worker>();
+        Log.Information($"apiKey = {apiKey}");
+        Log.Information($"dbProxy = {dbProxy}");
+        Log.Information($"tgSub = {tgSub}");
     })
     .UseSerilog((context, config) => config.WriteTo.Console().WriteTo.File("logs/logs.txt"))
+    
     .Build();
 
 await builder.RunAsync();
