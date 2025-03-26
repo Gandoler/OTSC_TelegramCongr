@@ -49,10 +49,8 @@ try
             var tgSub = configuration["ApiSettings:TGSUBS"]
                          ?? throw new Exception("TGSUBS is missing");
 
-            Log.Information("apiKey = {ApiKey}", apiKey);
-            Log.Information("dbProxy = {DbProxy}", dbProxy);
-            Log.Information("tgSub = {TgSub}", tgSub);
 
+            services.AddSingleton(Log.Logger);
             services.AddSingleton(new TelegramBotClient(apiKey));
             services.AddSingleton<IBotCommandHandler, BotCommandHandler>();
             services.AddSingleton<ITgSubProxy, TgSubProxy>(); 
@@ -81,6 +79,10 @@ try
             });
 
             services.AddLogging();
+            
+            Log.Information("apiKey = {ApiKey}", apiKey);
+            Log.Information("dbProxy = {DbProxy}", dbProxy);
+            Log.Information("tgSub = {TgSub}", tgSub);
             services.AddSingleton<TelegramBotService>();
             services.AddHostedService<Worker>();
         })
