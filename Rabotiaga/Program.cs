@@ -35,6 +35,7 @@ try
             }
             else
             {
+                config.Sources.Clear(); 
                 config.AddEnvironmentVariables();
             }
         })
