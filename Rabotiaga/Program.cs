@@ -22,6 +22,10 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File("logs/logs.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
+string apiKey = string.Empty;
+string dbProxy = string.Empty;
+string tgSub = string.Empty;
+
 try
 {
     var builder = Host.CreateDefaultBuilder(args)
@@ -32,23 +36,25 @@ try
             if (env.IsDevelopment())
             {
                 config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                var configuration = hostContext.Configuration;
+
+                apiKey = configuration["TelegramBot:ApiKey"]
+                         ?? throw new Exception("ApiKey is missing");
+                dbProxy = configuration["ApiSettings:DbProxy"]
+                          ?? throw new Exception("DbProxy is missing");
+                tgSub = configuration["ApiSettings:TGSUBS"]
+                        ?? throw new Exception("TGSUBS is missing");
             }
             else
             {
-                config.Sources.Clear(); 
-                config.AddEnvironmentVariables();
+                apiKey = Environment.GetEnvironmentVariable("ApiKey") ?? throw new Exception("ApiKey is missing");
+                dbProxy = Environment.GetEnvironmentVariable("DbProxy") ?? throw new Exception("DbProxy is missing");
+                tgSub = Environment.GetEnvironmentVariable("TGSUBS") ?? throw new Exception("TGSUBS is missing");
             }
         })
         .ConfigureServices((hostContext, services) =>
         {
-            var configuration = hostContext.Configuration;
-
-            var apiKey = configuration["TelegramBot:ApiKey"]
-                         ?? throw new Exception("ApiKey is missing");
-            var dbProxy = configuration["ApiSettings:DbProxy"]
-                          ?? throw new Exception("DbProxy is missing");
-            var tgSub = configuration["ApiSettings:TGSUBS"]
-                         ?? throw new Exception("TGSUBS is missing");
+           
 
 
             services.AddSingleton(Log.Logger);
