@@ -24,6 +24,9 @@ FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
+ENV ApiKey=your_telegram_bot_token
+ENV DbProxy=http://your_db_proxy_address
+ENV TGSUBS=http://your_tgsubs_address
 
 # Запускаем приложение
 ENTRYPOINT ["dotnet", "Rabotiaga.dll"]
